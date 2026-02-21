@@ -18,6 +18,8 @@ def excepbox(exc_type, exc_value, exc_traceback):
 
 sys.excepthook = excepbox
 
+print("Se modifica este programa con esta linea")
+
 root = tk.Tk()
 root.withdraw()
-messagebox.showinfo("AVISO", "Fin del programa")
+messagebox.showinfo("AVISO", "Finalizamos el programa")
