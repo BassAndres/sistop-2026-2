@@ -6,7 +6,7 @@
 
 Ejecutando `git lg .`
 
-![](Historial%20commits.png)
+![Historial commits](Anexos/Historial%20commits.png)
 
 ---
 # Diferencia entre el momento 1 y el momento 2
@@ -14,7 +14,7 @@ Ejecutando `git lg .`
 
 Ejecutando `git diff`
 
-![](Dif%201%20y%202.png)
+![Dif 1 y 2](Anexos/Dif%201%20y%202.png)
 
 >*Note que el archivo ha sido creado desde 0, las 10 línea son de escritura*
 
@@ -24,6 +24,6 @@ Ejecutando `git diff`
 
 Ejecutando `git diff`
 
-![](Diferencia%202%20y%203.png)
+![Diferencia 2 y 3](Anexos/Diferencia%202%20y%203.png)
 
 >*Note como aparece una sola línea en rojo, pues es la única que se eliminó (cambió) por todo el saludo personalizado*
