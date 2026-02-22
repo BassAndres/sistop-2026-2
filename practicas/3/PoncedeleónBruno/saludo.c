@@ -1,7 +1,11 @@
 #include <stdio.h>
 
+char usuario[15];
+
 int main (void){
 
-       printf("\nHola mundo, soy Bruno :D\n");
-       return 0;
+    printf("\nFavor de ingresar tu usuario\n");
+    scanf("%s",&usuario);
+    printf("\nHola %s :D\n", usuario);
+    return 0;
 }
