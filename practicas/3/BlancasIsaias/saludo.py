@@ -1,1 +1,3 @@
-print ("Hola mundoooo")
+import sys
+nombre = sys.argv[1] if len(sys.argv) > 1 else "extraño"
+print(f"Hola, {nombre}, ojalá te vaya bien en la vida.")
