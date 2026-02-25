@@ -2,7 +2,10 @@
 using namespace std;
 
 int main(){
-    cout<<"Hola mundo"<<endl;
+    string name;
+    cout<<"Ingresa tu nombre:"<<endl;
+    cin>>name;
+    cout<<"Hola "<<name<<", buen dia."<<endl;
 
 
     return 0;
