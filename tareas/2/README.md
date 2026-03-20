@@ -8,8 +8,7 @@ semáforos, y mencionamos también la existencia de otros (variables de
 condición, señales y manejadores Unix...)
 
 Resolvimos ya algunos problemas _clásicos_, y desarrollamos el problema de
-«_El Servidor Web_». Pueden [consultar aquí el código que desarrollamos en
-clase](../../ejemplos_en_clase/2. Administración de procesos/el_servidor_web.py)
+«_El Servidor Web_». Pueden [consultar aquí el código que desarrollamos en clase](../../ejemplos_en_clase/2.%20Administración%20de%20procesos/el_servidor_web.py)
 
 Ahora toca el turno a ustedes: Van a resolver un problema de programación
 concurrente en el que sea necesario emplear algún mecanismo de sincronización.
