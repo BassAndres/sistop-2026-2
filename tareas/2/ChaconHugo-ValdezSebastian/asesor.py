@@ -5,48 +5,57 @@ import random
 NUM_SILLAS = 3
 sillas_disponibles = NUM_SILLAS
 
-# Semáforos
-mutex = threading.Semaphore(1)          # protege sillas
+# Semaforos
+mutex = threading.Semaphore(1)          # Protege la variable sillas_disponibles
 alumnos_esperando = threading.Semaphore(0)
 asesor_disponible = threading.Semaphore(0)
+
+# Funcion auxiliar para mantener el formato de la tabla
+def imprimir_fila(evento, estado_asesor, sillas):
+    print(f"{str(evento):<25} | {str(estado_asesor):<20} | {str(sillas):^15}")
 
 def asesor():
     global sillas_disponibles
     while True:
-        print("Asesor: no hay alumnos, me duermo ")
-        alumnos_esperando.acquire()  # espera a que llegue alguien
+        # El asesor esta libre, pero esperando a que el semaforo se active
+        alumnos_esperando.acquire()  
 
         mutex.acquire()
-        sillas_disponibles += 1  # un alumno deja la silla
-        print(f"Asesor: atendiendo alumno | Sillas libres: {sillas_disponibles}")
+        sillas_disponibles += 1  # Un alumno deja la silla para entrar a la oficina
+        imprimir_fila("Atendiendo alumno", "OCUPADO", sillas_disponibles)
         asesor_disponible.release()
         mutex.release()
 
-        # Simula tiempo de asesoría
+        # Simula tiempo de asesoria
         time.sleep(random.randint(1, 3))
-        print("Asesor: terminé de atender \n")
-
+        
+        mutex.acquire()
+        imprimir_fila("Terminó asesoría", "DURMIENDO...", sillas_disponibles)
+        mutex.release()
 
 def alumno(id):
     global sillas_disponibles
     while True:
-        time.sleep(random.randint(1, 5))  # llegan en tiempos aleatorios
+        time.sleep(random.randint(1, 10))  # Llegan en tiempos aleatorios
 
         mutex.acquire()
         if sillas_disponibles > 0:
             sillas_disponibles -= 1
-            print(f"Alumno {id}: se sienta. Sillas libres: {sillas_disponibles}")
+            imprimir_fila(f"Alumno {id} se sienta", "---", sillas_disponibles)
 
             alumnos_esperando.release()
             mutex.release()
 
             asesor_disponible.acquire()
-            print(f"Alumno {id}: está siendo atendido")
-
+            # El alumno esta recibiendo la clase/asesoria
         else:
-            print(f"Alumno {id}: no hay sillas, se va ")
+            imprimir_fila(f"Alumno {id} se va (lleno)", "---", sillas_disponibles)
             mutex.release()
 
+# --- Configuracion inicial de la tabla ---
+print("\n" + "="*65)
+print(f"{'ALUMNO / EVENTO':<25} | {'ESTADO ASESOR':<20} | {'SILLAS LIBRES':^15}")
+print("="*65)
 
 # Crear hilos
 threading.Thread(target=asesor, daemon=True).start()
@@ -54,8 +63,9 @@ threading.Thread(target=asesor, daemon=True).start()
 for i in range(5):
     threading.Thread(target=alumno, args=(i,), daemon=True).start()
 
-
-# Mantener vivo
-while True:
-    time.sleep(1)
-
+# Mantener vivo el programa principal
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("\nSimulación finalizada.")
