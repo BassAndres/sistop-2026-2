@@ -1,3 +1,4 @@
+
 #+title: Exposiciones frente al grupo
 #+author: Gunnar Wolf
 
@@ -17,6 +18,7 @@
   | 6-abr-2026  | Fernando González y Emir Quezada                        | El proceso de arranque de una computadora                                |         |                             |                                                 |
   | 6-abr-2026  | Jorge Andrés Terán y Edgar Antonio Sotomayor            | El rol de los controladores (/drivers/)                                  |         |                             |                                                 |
   | 13-abr-2026 | Aldo Axel Estrada y Jazmín Sánchez                      | Planificación de tareas y ejecución paralela                             |         |                             |                                                 |
+  | 13-abr-2026 | Andrés Basilio Illescas y Samuel Santiago Cruz Macedo   | /Namespaces/ y /CGroups/ en la virtualización ligera                     |         |                             |                                                 |
   |-------------+---------------------------------------------------------+--------------------------------------------------------------------------+---------+-----------------------------+-------------------------------------------------|
   #+TBLFM: 
 
