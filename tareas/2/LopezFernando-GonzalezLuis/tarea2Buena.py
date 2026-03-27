@@ -5,7 +5,7 @@ import threading
 import time
 import random
 
-NUM_ELFOS = 10
+NUM_ELFOS = 5
 NUM_RENOS = 9
 NUM_BARRERA_ELFOS = 3 #Se ocupa para definir la barrera para los elfos
 
@@ -38,28 +38,32 @@ def accionReno(num):
 
 
 def trabajoElfo(num):
-    print(f"Soy el elfo {num} y estoy trabajando...")
-    numRandom = random.randint(1,10)
-    while(numRandom != 10):
-        numRandom = random.randint(1,10)
-
-    print(f"Elfo {num} encontre un problema")
-    llamadaProblema(num)
+    while True:
+        print(f"Soy el elfo {num} y estoy trabajando...")
+        numRandom = random.randint(1,100)
+        while(numRandom != 10):
+            numRandom = random.randint(1,10)
+        print(f"Elfo {num} encontre un problema")
+        llamadaProblema(num)
 
 
 #Funcion donde se gestiona la barrera de elfo
 def llamadaProblema(num):
     global cuentaBarreraElfos
-    print(f"[{num}] me formo para pedir ayuda a santa.")
     mutexElfo.acquire()
-    cuentaBarreraElfos += 1
-    print(f"La cuenta de elfos en espera es de : {cuentaBarreraElfos}")
-    if cuentaBarreraElfos == NUM_BARRERA_ELFOS:
-        print("Hablando a Santa")
-        santaSemaforo.release()
-    mutexElfo.release()
-    barreraElfos.acquire()
-    print("Los elfos se ponen a trabajar de nuevo")
+    if cuentaBarreraElfos < NUM_BARRERA_ELFOS:
+        cuentaBarreraElfos += 1
+        print(f"[{num}] me formo para pedir ayuda a santa: {cuentaBarreraElfos} esperando")
+        if cuentaBarreraElfos == NUM_BARRERA_ELFOS:
+            print("Hablando a Santa porque somos 3")
+            santaSemaforo.release()
+        mutexElfo.release()
+        barreraElfos.acquire()
+        print("Los elfos se ponen a trabajar de nuevo")
+    else: # Cuando hay 3 elfos, se ponen a trabajar de nuevo
+        print("Ya hay 3 elfos actualmente, regresare a trabajar")
+        mutexElfo.release()
+        time.sleep(0.2)
 
 
 def santaAyudando():
@@ -70,10 +74,12 @@ def santaAyudando():
         barreraElfos.release()
         barreraElfos.release()
         barreraElfos.release()
+        time.sleep(0.1)
 
         #Se resetea
         mutexElfo.acquire()
         cuentaBarreraElfos = 0
+        print("---------------VOLVERE A DORMIR --------------------")
         mutexElfo.release()
 
 #Creando hilo Santa Claus
