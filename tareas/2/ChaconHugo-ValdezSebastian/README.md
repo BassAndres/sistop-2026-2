@@ -6,8 +6,6 @@
 Un profesor de la facultad asesora a varios estudiantes, y estamos
 en su horario de atención.
 
-
-
 ### Reglas 
 * Un profesor tiene *__x__* sillas en su cubículo
     * Cuando no hay alumnos que atender, las sillas sirven como
@@ -25,9 +23,10 @@ turno.
 otra)
 
 
+
 ## Lenguaje y entorno
 
-Para resolver el problema usamos python, con las siguientes librerias:
+Para resolver el problema usamos python, con las siguientes bibliotecas:
 * threading: Para crear procesos paralelos
 * time: Para poder coordinarlos
 * random: Para crear caos y entre estos y que el programa tenga algo que resolver 
@@ -54,25 +53,33 @@ python3 asesor.py
 
 ## Estrategia de sincronización
 
-Usamos mutext
+Para resolver el problema utilizamos una combinación de exclusión mutua y sincronización condicional usando semaforos semáforos:
+
+* mutex (Binary Semaphore): Lo usamos para garantizar que haya exclusion mutua al intentar acceder a la variable global sillas_disponibles. Esto evita condiciones de carrera cuando múltiples hilos de alumnos intentan sentarse o cuando el asesor libera una silla simultáneamente.
+
+* alumnos_esperando (Counting Semaphore): Funciona como una especie de aviso para el asesor. Inicializado en 0, bloquea al hilo del asesor hasta que un alumno realiza un release(), indicando que hay alguien que requiere atención.
+
+* asesor_disponible (Binary Semaphore): Hace que se pueda sincronizar el momento exacto de la asesoría. El alumno se bloquea tras sentarse hasta que el asesor le da paso, asegurando que solo un alumno sea atendido a la vez.
 
 
 
-## Usamos refinamiento?
+## Refinamiento
 
-no lo se 
+El principal refinamiento que hicimos fue poner los resultados en una tabla para que se viera mas estetico y sea mas sencillo de leer que esta sucediendo
+
+Otro fue crear una interrupcion con el teclado _KeyboardInterrupt_, de esta forma podemos parar el programa rapidamente 
 
 
 
-## duda o meditaciones 
-
-blah blah 
+## Dudas / mejoras
+No logramos que sirviera la idea de que la tabla se actualizara en tiempo real, en vez de imprimir infinitamente  
 
 
 
 ## Autores
 
 Chacon Hugo
+
 Valdez Sebastian
 
 Materia: **Sistemas Operativos**
