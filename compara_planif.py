@@ -12,7 +12,7 @@ from typing import List, Dict, Tuple, Optional
 import argparse
 import random
 
-FB_LEVELS = 3
+FB_LEVELS = 2
 FB_QUANTA = (1, 2, 4)
 
 @dataclass(frozen=True)
